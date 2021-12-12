@@ -28,10 +28,8 @@ resource "aws_iam_role" "lambda-iam" {
     "Version" : "2012-10-17",
     "Statement": [
         {
-            "Action": "sts.AssumeRole",
-            "Principal": {
-                "Service": "lambda.amazonaws.com"                    
-            },
+            "Action": "lambda:*",
+            "Resource":"arn:aws:iam::8888888824769:user/wei.you@xxxx.co.jp",
             "Effect":"Allow",
             "Sid": ""
         }
@@ -51,7 +49,7 @@ resource "aws_lambda_function" "lambda" {
 }
 
 resource "aws_apigatewayv2_api" "lambda-api" {
-  name     = "v2-http-api"
+  name          = "v2-http-api"
   protocol_type = "HTTP"
 }
 
@@ -64,10 +62,10 @@ resource "aws_apigatewayv2_stage" "lambda-stage" {
 
 
 resource "aws_apigatewayv2_integration" "lambda-integration" {
-  api_id                = aws_apigatewayv2_api.lambda-api.id
-  integration_type      = "AWS_PROXY"
-  integration_method    = "POST"
-  integration_uri       = aws_lambda_function.lambda.invoke_arn
+  api_id               = aws_apigatewayv2_api.lambda-api.id
+  integration_type     = "AWS_PROXY"
+  integration_method   = "POST"
+  integration_uri      = aws_lambda_function.lambda.invoke_arn
   passthrough_behavior = "WHEN_NO_MATCH"
 }
 
