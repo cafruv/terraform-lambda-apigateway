@@ -29,7 +29,7 @@ resource "aws_iam_role" "lambda-iam" {
     "Statement": [
         {
             "Action": "lambda:*",
-            "Resource":"arn:aws:iam::8888888824769:user/wei.you@xxxx.co.jp",
+            "Resource":"*",
             "Effect":"Allow",
             "Sid": ""
         }
